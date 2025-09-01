@@ -1,0 +1,64 @@
+﻿
+
+@model List<TPLOCAL1.Models.Opinion>
+
+<head>
+    <link rel="stylesheet" href="~/resources/Index.css" />
+    <title>Liste avis</title>
+    <style>
+        .avis-oui { background-color: green; }
+        .avis-non { background-color: red  ;}
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="~/resources/GroupeHN.png" class="image" alt="GroupeHN" />
+        <h1>@ViewData["Title"]</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/Home/Index/index"> Aceuil</a></li>
+            <li><a href="/Home/Index/Form"> Remplir le formulaire</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <table>
+            <thead>
+                <caption>Liste </caption>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Avis donné</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var avis in Model)
+                {
+                    <tr>
+                        <td>@avis.LastName</td>
+                        <td>@avis.FirstName</td>
+                        
+                        @{
+                            string cssClass = (avis.OpinionGiven == "O") ? "avis-oui" : "avis-non";
+                            string avisText = (avis.OpinionGiven == "O" || avis.OpinionGiven == "N") ? "Oui" : "Non";
+                            
+                          
+                            string displayText = "Non";
+                            if (avis.OpinionGiven.ToUpper() == "O") 
+                            {
+                                displayText = "Oui";
+                            }
+                        }
+
+                        <td class="@cssClass">
+                            @displayText
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</body>
